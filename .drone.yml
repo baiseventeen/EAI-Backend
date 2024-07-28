@@ -38,10 +38,10 @@ steps:
       IMAGE_NAME: english-ai/eai-backend
       IMAGE_TAG: latest
     settings:
-      host: 47.111.23.171
+      host: 8.130.126.86
       username: root
       password:
-        from_secret: server-password
+        from_secret: ssh_password
       port: 22
       envs: [DOCKER_USERNAME,DOCKER_PASSWORD,DOCKER_REGISTRY,CONTAINER_NAME,IMAGE_NAME,IMAGE_TAG]
       script:
