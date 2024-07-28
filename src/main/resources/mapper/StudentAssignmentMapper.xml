@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njuzr.eaibackend.mapper.StudentAssignmentMapper">
+    <select id="findEngagementByStudentIdAndAssignmentId" resultType="Engagement">
+        SELECT *
+        FROM student_assignment
+        WHERE student_id = #{studentId} AND assignment_id = #{assignmentId}
+    </select>
+
+<!--  TODO：（柏琪）通过assignmentID查找  -->
+    <select id="findEngagementByAssignmentId" resultType="Engagement">
+        SELECT *
+        FROM student_assignment
+        WHERE assignment_id = #{assignmentId}
+    </select>
+
+</mapper>

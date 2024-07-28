@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njuzr.eaibackend.mapper.CourseStudentMapper">
+    <select id="selectStudentsByCourseId" resultType="com.njuzr.eaibackend.po.User">
+        SELECT *
+        FROM users u
+        INNER JOIN course_student cs ON u.id = cs.student_id
+        WHERE cs.course_id = #{courseId}
+    </select>
+
+    <select id="selectCoursesByStudentId" resultType="Course">
+        SELECT *
+        FROM course c
+        INNER JOIN course_student cs ON c.course_id = cs.course_id
+        WHERE  cs.student_id = #{studentId}
+    </select>
+
+    <select id="findEngagementByStudentIdAndAssignmentId" resultType="Engagement">
+        SELECT *
+        FROM student_assignment
+        WHERE student_id = #{studentId} AND assignment_id = #{assignmentId}
+    </select>
+</mapper>

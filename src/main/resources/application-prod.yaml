@@ -1,0 +1,57 @@
+spring:
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: eai123456
+    url: jdbc:mysql://47.111.23.171:3306/eai?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
+  data:
+    mongodb:
+      uri: mongodb://root:eai123456@47.111.23.171:27017/eai?authSource=admin
+      authentication-database: admin
+  mail:
+    host: smtp.163.com
+    port: 25
+    username: seecoder2022@163.com # Seecoder的公共邮箱
+    password: WEIHUIOOJYUFMZGV # 邮箱开启stmp的秘钥
+    default-encoding: UTF-8
+
+
+# MyBatis配置
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com/njuzr/eaibackend/po
+
+
+jwt:
+  # jjwt密钥算法HS256，要求secret长度至少是256位
+  secret: xTv@UA7e2q$*n&92AHo5Wj$@KAnguhxTv@UA7e2q$*n&92AHo5Wj$@KAnguhxTv@UA7e2q$*n&92AHo5Wj$@KAnguhxTv@UA7e2q$*n&92AHo5Wj$@KAnguhxTv@UA7e2q$*n&92AHo5Wj$@KAnguhxTv@UA7e2q$*n&92AHo5Wj$@KAnguhxTv@UA7e2q$*n&92AHo5Wj$@KAnguhxTv@UA7e2q$*n&92AHo5Wj$@KAnguh92AHo5Wj$@KAnguh92AHo5Wj$@KAnguh92AHo5Wj$@KAnguh
+  issuer: eai
+  expiration: 86400
+
+
+aliyun:
+  oss:
+    endpoint: oss-cn-shanghai.aliyuncs.com
+    accessKeyId: LTAI5tKsfJJKByjVqNKCvRR3
+    accessKeySecret: fckFhhxhG234aOZfjIAxZZuFA3RCkH
+    bucketName: eai-files
+
+
+logging:
+  config: classpath:log4j2-prod.xml
+
+openai:
+  chatgpt:
+    model: gpt-3.5-turbo
+    api:
+      key: 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
+
+proxy:
+  enabled: false
+  host: 20.111.54.16
+  port: 8123
+
+

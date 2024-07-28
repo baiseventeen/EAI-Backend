@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.njuzr.eaibackend.mapper.UserMapper">
+    <select id="selectByOfficialNumber" resultType="com.njuzr.eaibackend.po.User">
+        select *
+        from users
+        where official_number = #{officialNumber}
+    </select>
+
+    <update id="updateUser" parameterType="com.njuzr.eaibackend.po.User">
+        UPDATE users
+        <set>
+            <if test="name != null">name=#{name},</if>
+            <if test="password != null">password=#{password}</if>
+            <if test="officialEmail != null">official_email=#{officialEmail},</if>
+            <if test="officialNumber != null">official_number=#{officialNumber},</if>
+            <if test="role != null">role=#{role},</if>
+            <if test="userAvatar != null">user_avatar=#{userAvatar},</if>
+            <if test="englishName != null">english_name=#{englishName},</if>
+            <if test="gender != null">gender=#{gender},</if>
+            <if test="birthday != null">birthday=#{birthday},</if>
+            <if test="phone != null">phone=#{phone},</if>
+            <if test="contentEmail != null">content_email=#{contentEmail}</if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <insert id="batchInsert" parameterType="list">
+        INSERT INTO users (name, password, official_number, official_email, role, create_time) VALUES
+        <foreach collection="list" item="user" index="index" separator=",">
+            (#{user.name}, #{user.password}, #{user.officialNumber}, #{user.officialEmail}, #{user.role}, #{user.createTime})
+        </foreach>
+    </insert>
+
+    <update id="updatePassword">
+        UPDATE users
+        SET password=#{newPassword}
+        WHERE id=#{id}
+    </update>
+</mapper>

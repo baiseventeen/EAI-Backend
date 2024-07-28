@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="logPath">/app/logs</Property>
+        <Property name="logPattern">%style{%d{ISO8601}}{bright,green} %highlight{%-5level} [%style{%t}{bright,blue}] %style{%C{}}{bright,yellow}: %msg%n%style{%throwable}{red}</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="RollingFile" fileName="${logPath}/app.log"
+                     filePattern="${logPath}/app-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="${logPattern}" />
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+            <DefaultRolloverStrategy max="14"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="RollingFile" />
+        </Root>
+    </Loggers>
+</Configuration>

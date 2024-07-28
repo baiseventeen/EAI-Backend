@@ -1,0 +1,61 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+   # 步骤 1: Maven 构建
+  - name: build-with-maven
+    image: maven:3.8.5-openjdk-17-slim
+    volumes:
+      - name: maven-cache
+        path: /root/.m2
+    commands:
+      - mvn clean package -DskipTests
+
+  # 步骤 2: 构建 Docker 镜像并上传
+  - name: build-and-push-docker-image
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker-username
+      password:
+        from_secret: docker-password
+      registry: registry.cn-hangzhou.aliyuncs.com
+      repo: registry.cn-hangzhou.aliyuncs.com/english-ai/eai-backend
+      tags: latest
+      dockerfile: Dockerfile
+
+  # 步骤 3: 通过ssh进行部署
+  - name: deploy-with-ssh
+    image: appleboy/drone-ssh
+    environment:
+      CONTAINER_NAME: eai-backend
+      DOCKER_USERNAME:
+        from_secret: docker-username
+      DOCKER_PASSWORD:
+        from_secret: docker-password
+      DOCKER_REGISTRY: registry.cn-hangzhou.aliyuncs.com
+      IMAGE_NAME: english-ai/eai-backend
+      IMAGE_TAG: latest
+    settings:
+      host: 47.111.23.171
+      username: root
+      password:
+        from_secret: server-password
+      port: 22
+      envs: [DOCKER_USERNAME,DOCKER_PASSWORD,DOCKER_REGISTRY,CONTAINER_NAME,IMAGE_NAME,IMAGE_TAG]
+      script:
+        - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY
+        - tag=$DOCKER_REGISTRY/$IMAGE_NAME:$IMAGE_TAG
+        - docker pull $tag
+        - if [ $(docker ps -aq -f name=eai-backend) ]; then docker rm -f eai-backend; fi
+        - docker run -d -p 8081:8080 --name eai-backend -v $(pwd)/logs:/app/logs registry.cn-hangzhou.aliyuncs.com/english-ai/eai-backend
+
+volumes:
+  - name: maven-cache
+    host:
+      path: /tmp/cache/.m2
+
+trigger:
+  branch:
+    - main
