@@ -6,10 +6,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: eai123456
-    url: jdbc:mysql://139.196.252.184:3306/eai?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://8.130.126.86:3306/eai?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true
   data:
     mongodb:
-      uri: mongodb://root:eai123456@139.196.252.184:27017/eai?authSource=admin
+      uri: mongodb://root:eai123456@8.130.126.86:27017/eai?authSource=admin
       authentication-database: admin
   mail:
     host: smtp.163.com
