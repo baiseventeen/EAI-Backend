@@ -21,7 +21,7 @@ steps:
       password:
         from_secret: docker-password
       registry: registry.cn-hangzhou.aliyuncs.com
-      repo: registry.cn-hangzhou.aliyuncs.com/english-ai/eai-backend
+      repo: registry.cn-hangzhou.aliyuncs.com/english_ai/eai_backend
       tags: latest
       dockerfile: Dockerfile
 
@@ -35,7 +35,7 @@ steps:
       DOCKER_PASSWORD:
         from_secret: docker-password
       DOCKER_REGISTRY: registry.cn-hangzhou.aliyuncs.com
-      IMAGE_NAME: english-ai/eai-backend
+      IMAGE_NAME: english_ai/eai_backend
       IMAGE_TAG: latest
     settings:
       host: 8.130.126.86
